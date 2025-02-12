@@ -1,0 +1,18 @@
+import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
+
+import { LoginPage } from "./pages/Login";
+import { Table } from "./components/Table";
+function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<Table />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;
