@@ -5,7 +5,7 @@ interface ProgressTableProps {
   progresso: Progresso[];
 }
 
-const ProgressTable: React.FC<ProgressTableProps> = ({
+export const ProgressTable: React.FC<ProgressTableProps> = ({
   loading,
   progresso,
 }) => {
@@ -17,8 +17,8 @@ const ProgressTable: React.FC<ProgressTableProps> = ({
         <thead className="bg-sky-500 text-white sticky top-0">
           <tr>
             <th className="p-4 text-left">Setor</th>
-            <th className="p-4 text-left">Área</th>
-            <th className="p-4 text-left">Técnico</th>
+            <th className="p-4 text-left">Area</th>
+            <th className="p-4 text-left">Tecnico</th>
             {progresso.length > 0 &&
               progresso[0].weeks.map((_, index) => (
                 <th key={index} className="p-4 text-left">
@@ -54,5 +54,3 @@ const ProgressTable: React.FC<ProgressTableProps> = ({
     </div>
   );
 };
-
-export default ProgressTable;

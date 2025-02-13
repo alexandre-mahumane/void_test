@@ -19,7 +19,7 @@ export const Login = () => {
       const token = response.data.data.token;
       console.log(response.data);
       localStorage.setItem("authToken", token);
-      navigate("/");
+      navigate("/table");
     } catch (err) {
       setError("erro no login");
     }

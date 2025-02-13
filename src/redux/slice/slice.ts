@@ -1,7 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../api/Api";
+import {
+  Area,
+  Input,
+  Progresso,
+  ProgressoState,
+  Sector,
+} from "../../interfaces/interface";
 
 export const fetchData = createAsyncThunk("progresso/fetchData", async () => {
+  console.log("ana");
   try {
     const [sectorRes, areaRes, progressoRes, analyticsRes] = await Promise.all([
       api.get("/sectors/all/de190ded-d23c-410c-89ac-89faf4dfb36a"),
@@ -13,26 +21,27 @@ export const fetchData = createAsyncThunk("progresso/fetchData", async () => {
     ]);
 
     return {
-      sectors: sectorRes.data.data.data,
-      areas: areaRes.data.data,
-      progresso: progressoRes.data.data.technicians,
-      analytics: analyticsRes.data.data,
+      sectors: sectorRes.data.data.data as Sector[],
+      areas: areaRes.data.data as Area[],
+      progresso: progressoRes.data.data.technicians as Progresso[],
+      analytics: analyticsRes.data.data as Input[],
     };
   } catch (error) {
     throw error;
   }
 });
+const initialState: ProgressoState = {
+  sectors: [],
+  areas: [],
+  progresso: [],
+  analytics: [],
+  loading: false,
+  error: null,
+};
 
 const progressoSlice = createSlice({
   name: "progresso",
-  initialState: {
-    sectors: [],
-    areas: [],
-    progresso: [],
-    analytics: [],
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

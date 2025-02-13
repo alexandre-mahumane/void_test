@@ -11,7 +11,7 @@ interface FiltersProps {
   setSearchTerm: (value: string) => void;
 }
 
-const Filters: React.FC<FiltersProps> = ({
+export const Filters: React.FC<FiltersProps> = ({
   sector,
   area,
   selectedSector,
@@ -58,5 +58,3 @@ const Filters: React.FC<FiltersProps> = ({
     </div>
   );
 };
-
-export default Filters;

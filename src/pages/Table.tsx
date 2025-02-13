@@ -1,56 +1,30 @@
 import { useState } from "react";
-import Filters from "../components/Filter";
-import ProgressTable from "../components/tables/Progressivo";
+
 import useProgresso from "../hooks/useProgress";
-import InputTable from "../components/tables/Input";
+import { InputTable } from "../components/tables/Input";
+import { Filters } from "../components/Filter";
+import { ProgressTable } from "../components/tables/Progressivo";
 
 export const Table = () => {
-  //   const [sector, setSector] = useState<Sector[]>([]);
-  //   const [area, setArea] = useState<Area[]>([]);
-  //   const [progresso, setProgresso] = useState<Progresso[]>([]);
-  //   const [loading, setLoading] = useState(true);
   const [selectedSector, setSelectedSector] = useState<string>("Todos");
   const [selectedArea, setSelectedArea] = useState<string>("Todos");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const { areas, progresso, loading, sectors, analytics } = useProgresso();
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const [sectorRes, areaRes, progressoRes] = await Promise.all([
-  //           api.get("/sectors/all/de190ded-d23c-410c-89ac-89faf4dfb36a"),
-  //           api.get("/areas"),
-  //           api.get(
-  //             "/last-week/de190ded-d23c-410c-89ac-89faf4dfb36a?=&_limit=10"
-  //           ),
-  //         ]);
 
-  //         setSector(sectorRes.data.data.data);
-  //         setArea(areaRes.data.data);
-  //         setProgresso(progressoRes.data.data.technicians);
-  //       } catch (error) {
-  //         console.error("Erro ao buscar dados:", error);
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     };
-
-  //     fetchData();
-  //   }, []);
-
+  console.log(analytics);
   const filteredProgresso = progresso.filter(
     (item) =>
-      (selectedSector === "Todos" || "item.sector" === selectedSector) &&
-      (selectedArea === "Todos" || "item.area_name" === selectedArea)
-    //    &&
-    //   item.technician_name.toLowerCase().includes(searchTerm.toLowerCase())
+      (selectedSector === "Todos" || item.sector === selectedSector) &&
+      (selectedArea === "Todos" || item.area_name === selectedArea) &&
+      item.technician_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex space-y-28 flex-col items-center justify-center min-h-screen">
       <div className="w-full px-6 bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-3xl font-bold text-sky-600 text-center mb-6">
-          Análises - Progresso
+          Analises - Progresso
         </h2>
         <Filters
           sector={sectors}
@@ -81,7 +55,7 @@ export const Table = () => {
         />
         <InputTable
           loading={loading}
-          input={analytics}
+          analytics={analytics}
           progresso={filteredProgresso}
         />
       </div>
